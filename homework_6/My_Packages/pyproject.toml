@@ -1,5 +1,5 @@
 [project]
-name = "Integrate"
+name = "Hennessy_Integrate"
 version = "0.1.0"
 description = "The first test package"
 dependencies = [

@@ -1,4 +1,4 @@
-from Integrate import Runga_Kutta as RK
+from Hennessy_Integrate import Runga_Kutta as RK
 import numpy as np
 
 def partial(r,t, w = 1):
@@ -17,4 +17,4 @@ N = 100
 h = (tf-t0)/N
 timeVals = np.arange(t0,tf,h)
 
-RK()
+= RK()
