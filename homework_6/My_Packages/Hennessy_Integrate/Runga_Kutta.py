@@ -10,3 +10,5 @@ def Runga_Kutta(r,f,h,timeVals):
         k3 =  h * f(r + 0.5*k2, i + 0.5*h)
         k4 = h * f(r + k3, i + h)
         r = r + 1/6 * (k1 + 2*k2 + 2*k3 + k4)
+    
+    return xVals,yVals

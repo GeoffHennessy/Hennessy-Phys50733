@@ -17,4 +17,3 @@ N = 100
 h = (tf-t0)/N
 timeVals = np.arange(t0,tf,h)
 
-= RK()

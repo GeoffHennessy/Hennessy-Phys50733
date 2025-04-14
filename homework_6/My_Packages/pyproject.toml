@@ -4,9 +4,9 @@ version = "0.1.0"
 description = "The first test package"
 dependencies = [
     "flask",
-    "click"
+    "click",
 ]
 
 [build-system]
-requires = ["setuptools >= 77.0.3"]
+requires = ["setuptools >= 75.3.2"]
 build-backend = "setuptools.build_meta"
