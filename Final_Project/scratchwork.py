@@ -17,23 +17,49 @@ def Distance(body1, body2):
     return (np.sqrt(delx**2 + dely**2))
 
 def Forces(body1,body2):
-    
-    dV = body1.m * np.array[body1.x - body2.x, body1.y - body2.y] \
+    dx = body1.vx
+    dy = body1.dy
+    dvx = body1.m * (body1.x - body2.x) \
     / Distance(body1,body2)**3
-    # body1.x += body1.vx
-    # body1.y += body1.vy
-    return dV
+    dvy = body1.m * (body1.y - body2.y) \
+    / Distance(body1,body2)**3
 
-def Runga_Kutta(xVals,yVals,r,function,h):
-        xVals.append(r[0])
-        yVals.append(r[1])
+    return np.array([dx,dy,dvx,dvy])
+
+xVals = []
+yVals = []
+vxVals = []
+vyVals = []
+
+def Runga_Kutta(r,function,h):
+        # xVals.append(r[0])
+        # yVals.append(r[1])
+        # vxVals.append(r[2])
+        # vyVals.append(r[3])
         k1 = h * function(r,i)
         k2 = h * function(r + 0.5*k1, i + 0.5*h)
         k3 =  h * function(r + 0.5*k2, i + 0.5*h)
         k4 = h * function(r + k3, i + h)
         r = r + 1/6 * (k1 + 2*k2 + 2*k3 + k4)
+        return r 
+
+
 
 Jupiter = Stellar_Body(18.98E26,[0,69911000],[13.07,0])
-timeVals = np.arange(10000)
+Sun = Stellar_Body(1.989E30,[0,0],[0,0])
+
+timeVals = np.arange(0,12*365,1)
+
 for i in timeVals:
-    r = [Jupiter.x,Jupiter.y,Jupiter.vx,Jupiter.vy]
+    # Adjust r vector based on current values
+    rJ = [Jupiter.x, Jupiter.y, Jupiter.vx, Jupiter.vy]
+    rS = [Sun.x, Sun.y, Sun.vx, Sun.vy]
+
+    #Track Jupiter's values
+    xVals.append(rJ[0])
+    yVals.append(rJ[1])
+    xVals.append(rJ[2])
+    vyVals.append(rJ[3])
+
+    #Use Runga_Kutta to get new values for object each timestep
+    dr = Runga_Kutta(rJ,)
