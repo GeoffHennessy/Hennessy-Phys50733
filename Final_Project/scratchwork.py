@@ -30,7 +30,7 @@ def KE(object):
 
 def PE(object):
     distance = (object.x**2 + object.y**2)**(1/2)
-    potential = -S(G * Sun.mass * object.mass)  / distance
+    potential = -(G * Sun.mass * object.mass)  / distance
     return potential
 
 def Runga_Kutta(r,function,h):
