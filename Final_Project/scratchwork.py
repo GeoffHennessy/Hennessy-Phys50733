@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib import animation as animation
 
 G = 6.6743E-11
 
@@ -113,4 +114,38 @@ ax2 = plt.subplot(111)
 ax2.plot(timeVals,KE_total)
 ax2.plot(timeVals,PE_total)
 ax2.plot(timeVals, E_Total)
+
+
+
+#create the plot ojbect
+fig3, ax3 = plt.subplots()
+JScat = ax3.scatter([],[]) # creating the plot which we will populate with values
+CScat = ax3.scatter([],[])
+SScat = ax3.scatter([],[])
+
+ax3.set_xlim([-2e12,2e12])
+ax3.set_ylim([-1.5e12,1.5e12])
+
+def init():
+     JScat.set_offsets(np.empty((0,2)))
+     SScat.set_offsets(np.empty((0,2)))
+     CScat.set_offsets(np.empty((0,2)))
+
+     return(JScat, SScat, CScat)
+
+def update(frame):
+     
+     JScat.set_offsets([[JxVals[frame], JyVals[frame]]])
+     SScat.set_offsets([[SxVals[frame], SyVals[frame]]])
+     CScat.set_offsets([[CxVals[frame], CyVals[frame]]])
+     return (JScat,SScat,CScat)
+
+
+ani = animation.FuncAnimation(
+    fig=fig3, 
+    func=update,
+    frames=range(0,len(timeVals),2),
+    init_func = init,
+    interval = 1,
+    blit= True)
 plt.show()
