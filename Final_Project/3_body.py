@@ -44,20 +44,19 @@ b1xVals, b1yVals, b1vxVals, b1vyVals = [], [], [], []
 b2xVals, b2yVals, b2vxVals, b2vyVals = [], [], [], []
 b3xVals, b3yVals, b3vxVals, b3vyVals = [], [], [], []
 
-p1 = 0.306893
-p2 = 0.125507
 
-b1 = Body([-1,0],[p1,p2])
-b2 = Body([1,0],[p1,p2])
-b3 = Body([0,0],[-2*p1,-2*p2])
 
-dt = 0.00000001
-Final_T = 6.3
+b1 = Body([-0.9892620043,0],[0,1.9169244185])
+b2 = Body([2.2096177241,0],[0,0.1910268738])
+b3 = Body([-1.2203557197,0],[0,-2.1079512924])
+
+dt = 0.001
+Final_T = 20
 timeVals = np.arange(0,Final_T,dt)
 
 for i in timeVals:
     # Adjust r vector based on current values
-    rb1 = np.array([b1.x, b1.y, b1.vx, b1.vy, b3.x, b3.y, b3.x, b3.y])
+    rb1 = np.array([b1.x, b1.y, b1.vx, b1.vy, b2.x, b2.y, b3.x, b3.y])
     rb2 = np.array([b2.x, b2.y, b2.vx, b2.vy, b1.x, b1.y, b3.x, b3.y])
     rb3 = np.array([b3.x, b3.y, b3.vx, b3.vy, b1.x, b1.y, b2.x, b2.y])
 
