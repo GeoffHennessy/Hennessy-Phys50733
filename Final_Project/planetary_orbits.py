@@ -12,11 +12,6 @@ class Stellar_Body(object):
         self.vx = args2[0]
         self.vy = args2[1]
 
-# def Distance(body1, body2):
-#     delx = body1.x - body2.x
-#     dely = body1.y - body2.y
-#     return (np.sqrt(delx**2 + dely**2))
-
 def Forces(r,t):
     dx = r[2]
     dy = r[3]
