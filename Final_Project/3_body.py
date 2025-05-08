@@ -31,11 +31,11 @@ def PE(object):
     potential = -1 / distance
     return potential
 
-def Runga_Kutta(r,function,h):
-        k1 = h * function(r,i)
-        k2 = h * function(r + 0.5*k1, i + 0.5*h)
-        k3 =  h * function(r + 0.5*k2, i + 0.5*h)
-        k4 = h * function(r + k3, i + h)
+def Runga_Kutta(r,function,h,t):
+        k1 = h * function(r,t)
+        k2 = h * function(r + 0.5*k1, t + 0.5*h)
+        k3 =  h * function(r + 0.5*k2, t + 0.5*h)
+        k4 = h * function(r + k3, t + h)
         r = r + 1/6 * (k1 + 2*k2 + 2*k3 + k4)
         return r 
 
@@ -51,7 +51,7 @@ b2 = Body([2.2096177241,0],[0,0.1910268738])
 b3 = Body([-1.2203557197,0],[0,-2.1079512924])
 
 dt = 0.0001
-Final_T = 15
+Final_T = 34
 timeVals = np.arange(0,Final_T,dt)
 
 for i in timeVals:
@@ -78,9 +78,9 @@ for i in timeVals:
 
     # Runga Kutta to adjust values
 
-    rb1 = Runga_Kutta(rb1,Forces,dt)
-    rb2 = Runga_Kutta(rb2,Forces,dt)
-    rb3 = Runga_Kutta(rb3,Forces,dt)
+    rb1 = Runga_Kutta(rb1,Forces,dt,i)
+    rb2 = Runga_Kutta(rb2,Forces,dt,i)
+    rb3 = Runga_Kutta(rb3,Forces,dt,i)
 
     b1.x = rb1[0]
     b1.y = rb1[1]
@@ -102,5 +102,43 @@ ax = plt.subplot(111)
 ax.plot(b1xVals,b1yVals, c = 'black')
 ax.plot(b2xVals,b2yVals, c = 'r')
 ax.plot(b3xVals,b3yVals, c = 'blue')
+ax.set_title("Three Body Orbits")
+ax.set_xlabel("X Position")
+ax.set_ylabel("Y Position")
 plt.axis('equal')
+plt.show()
+
+# fig2, ax2 = plt.subplots()
+# b1Scat = ax2.scatter([],[])
+# b2Scat = ax2.scatter([],[])
+# b3Scat = ax2.scatter([],[])
+# ax2.set_xlim(-5, 5)
+# ax2.set_ylim(-5, 5)
+# ax2.set_title("Three Body Orbits")
+# ax2.set_xlabel("X Position")
+# ax2.set_ylabel("Y Position")
+
+# def init():
+#      b1Scat.set_offsets(np.empty((0,2)))
+#      b2Scat.set_offsets(np.empty((0,2)))
+#      b3Scat.set_offsets(np.empty((0,2)))
+
+#      return(b1Scat,b2Scat, b3Scat)
+
+# def update(frame):
+     
+#      b1Scat.set_offsets([[b1xVals[frame], b1yVals[frame]]])
+#      b2Scat.set_offsets([[b2xVals[frame], b2yVals[frame]]])
+#      b3Scat.set_offsets([[b3xVals[frame], b3yVals[frame]]])
+#      return (b1Scat,b2Scat,b3Scat)
+
+# ani = animation.FuncAnimation(
+#     fig=fig2, 
+#     func=update,
+#     frames=range(0,len(timeVals),500),
+#     init_func = init,
+#     interval = 10,
+#     blit= True)
+
+# ani.save("3_Body_ani.gif", fps = 60)
 plt.show()

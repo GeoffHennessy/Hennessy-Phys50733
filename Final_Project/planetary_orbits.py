@@ -96,30 +96,41 @@ for i in timeVals:
     PE_total.append(PE(Jupiter) + PE(Saturn) + PE(Ceres))
     E_Total.append(KE(Jupiter) + KE(Saturn) + KE(Ceres) + PE(Jupiter) + PE(Saturn) + PE(Ceres))
 
-fig = plt.figure(figsize = (16,10))
+fig = plt.figure(figsize = (16,16))
 ax = plt.subplot(111)
-ax.scatter(JxVals,JyVals)
-ax.scatter(SxVals,SyVals)
-ax.scatter(CxVals,CyVals)
-ax.plot(0,0)
+ax.plot(JxVals,JyVals, c = 'Orange', label = "Jupiter")
+ax.plot(SxVals,SyVals, c = 'blue', label = "Saturn")
+ax.plot(CxVals,CyVals, c = 'darkgreen', label = "Ceres")
+ax.scatter(0,0, c = 'black', label = "Sun")
+ax.set_title("Planetary Orbits of Ceres, Jupiter, and Saturn")
+ax.set_xlabel("X position (m)")
+ax.set_ylabel("Y position (m)")
+ax.legend()
 plt.axis('equal')
 
-fig2 = plt.figure(figsize = (16,10))
+fig2 = plt.figure(figsize = (10,10))
 ax2 = plt.subplot(111)
-ax2.plot(timeVals,KE_total)
-ax2.plot(timeVals,PE_total)
-ax2.plot(timeVals, E_Total)
-
+ax2.plot(timeVals,KE_total, label = "Kinetic Energy")
+ax2.plot(timeVals,PE_total, label = "Potential Energy")
+ax2.plot(timeVals, E_Total, label = "Total Energy")
+ax2.set_title("Energy of the System")
+ax2.set_xlabel("Time (6 hours)")
+ax2.set_ylabel("Energy (J)")
 
 
 #create the plot ojbect
 fig3, ax3 = plt.subplots()
-JScat = ax3.scatter([],[]) # creating the plot which we will populate with values
-CScat = ax3.scatter([],[])
-SScat = ax3.scatter([],[])
+JScat = ax3.scatter([],[], c = "orange", label = "Jupiter") # creating the plot which we will populate with values
+CScat = ax3.scatter([],[], c = "darkgreen", label = "Ceres")
+SScat = ax3.scatter([],[], c = "blue", label = "Saturn")
 
 ax3.set_xlim([-2e12,2e12])
-ax3.set_ylim([-1.5e12,1.5e12])
+ax3.set_ylim([-2e12,2e12])
+ax3.scatter(0,0, c = 'black', label = "Sun")
+ax3.set_title("Planetary Orbits of Ceres, Jupiter, and Saturn")
+ax3.set_xlabel("X position (m)")
+ax3.set_ylabel("Y position (m)")
+ax3.legend()
 
 def init():
      JScat.set_offsets(np.empty((0,2)))
@@ -139,7 +150,7 @@ def update(frame):
 ani = animation.FuncAnimation(
     fig=fig3, 
     func=update,
-    frames=range(0,len(timeVals),2),
+    frames=range(0,len(timeVals),20),
     init_func = init,
     interval = 1,
     blit= True)
