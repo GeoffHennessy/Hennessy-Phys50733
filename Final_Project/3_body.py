@@ -44,7 +44,10 @@ b1xVals, b1yVals, b1vxVals, b1vyVals = [], [], [], []
 b2xVals, b2yVals, b2vxVals, b2vyVals = [], [], [], []
 b3xVals, b3yVals, b3vxVals, b3vyVals = [], [], [], []
 
-
+KE1, PE1, E1 = [], [], []
+KE2, PE2, E2 = [], [], []
+KE3, PE3, E3 = [], [], []
+KE_total, PE_total, E_Total = [], [], []
 
 b1 = Body([-0.9892620043,0],[0,1.9169244185])
 b2 = Body([2.2096177241,0],[0,0.1910268738])
@@ -97,6 +100,26 @@ for i in timeVals:
     b3.vx = rb3[2]
     b3.vy = rb3[3]
 
+
+
+    KE1.append(KE(b1))
+    PE1.append(PE(b1))
+    E1.append(KE(b1)+PE(b1))
+    
+
+    KE2.append(KE(b2))
+    PE2.append(PE(b2))
+    E2.append(KE(b2)+PE(b2))
+    
+
+    KE3.append(KE(b3))
+    PE3.append(PE(b3))
+    E3.append(KE(b3)+PE(b3))
+
+    KE_total.append(KE(b1) + KE(b2) + KE(b3))
+    PE_total.append(PE(b1) + PE(b2) + PE(b3))
+    E_Total.append(KE(b1) + KE(b2) + KE(b3) + PE(b1) + PE(b2) + PE(b3))
+
 fig = plt.figure(figsize = (16,10))
 ax = plt.subplot(111)
 ax.plot(b1xVals,b1yVals, c = 'black')
@@ -106,7 +129,7 @@ ax.set_title("Three Body Orbits")
 ax.set_xlabel("X Position")
 ax.set_ylabel("Y Position")
 plt.axis('equal')
-plt.show()
+
 
 fig2, ax2 = plt.subplots()
 b1Scat = ax2.scatter([],[])
@@ -141,4 +164,25 @@ ani = animation.FuncAnimation(
     blit= True)
 
 ani.save("3_Body_ani.gif", fps = 60)
+
+fig4 = plt.figure(figsize=(16,10))
+ax4 = plt.subplot(411)
+ax4.plot(timeVals,KE1, c= "blue")
+ax4.plot(timeVals,PE1, c = "green")
+ax4.plot(timeVals,E1, c = "black")
+
+ax5 = plt.subplot(412)
+ax5.plot(timeVals,KE2, c= "blue")
+ax5.plot(timeVals,PE2, c = "green")
+ax5.plot(timeVals,E2, c = "black")
+
+ax6 = plt.subplot(413)
+ax6.plot(timeVals,KE3, c= "blue")
+ax6.plot(timeVals,PE3, c = "green")
+ax6.plot(timeVals,E3, c = "black")
+
+ax7 = plt.subplot(414)
+ax7.plot(timeVals,KE_total, c= "blue")
+ax7.plot(timeVals,PE_total, c = "green")
+ax7.plot(timeVals,E_Total, c = "black")
 plt.show()
