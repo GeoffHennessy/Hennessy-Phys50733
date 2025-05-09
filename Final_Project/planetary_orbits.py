@@ -43,7 +43,7 @@ SxVals, SyVals, SvxVals, SvyVals = [], [], [], []
 CxVals, CyVals, CvxVals, CvyVals = [], [], [], []
 KE_total, PE_total, E_Total = [], [], []
 
-Jupiter = Stellar_Body(18.98e26,[1.667e10,7.757e11],[-1.321e4,9.-06e2])
+Jupiter = Stellar_Body(18.98e26,[1.667e10,7.757e11],[-1.321e4,-9.06e2])
 Saturn = Stellar_Body(5.6834e26,[1.424e12,-1.626e-11],[5.592e2,9.576e3])
 Ceres = Stellar_Body(1.9e20,[4.138e11,-1.45e11],[5.19e3,1.57e4])
 Sun = Stellar_Body(1.989e30,[0,0],[0,0])
@@ -96,62 +96,67 @@ for i in timeVals:
     PE_total.append(PE(Jupiter) + PE(Saturn) + PE(Ceres))
     E_Total.append(KE(Jupiter) + KE(Saturn) + KE(Ceres) + PE(Jupiter) + PE(Saturn) + PE(Ceres))
 
-fig = plt.figure(figsize = (16,16))
+
+#Graphing
+fig = plt.figure(figsize = (10,10))
 ax = plt.subplot(111)
 ax.plot(JxVals,JyVals, c = 'Orange', label = "Jupiter")
 ax.plot(SxVals,SyVals, c = 'blue', label = "Saturn")
 ax.plot(CxVals,CyVals, c = 'darkgreen', label = "Ceres")
 ax.scatter(0,0, c = 'black', label = "Sun")
-ax.set_title("Planetary Orbits of Ceres, Jupiter, and Saturn")
-ax.set_xlabel("X position (m)")
-ax.set_ylabel("Y position (m)")
+ax.set_title("Planetary Orbits of Ceres, Jupiter, and Saturn", fontsize = 18)
+ax.set_xlabel("X position (m)", fontsize = 14)
+ax.set_ylabel("Y position (m)", fontsize = 14)
 ax.legend()
 plt.axis('equal')
+fig.savefig("Planetary Orbits")
 
 fig2 = plt.figure(figsize = (10,10))
 ax2 = plt.subplot(111)
 ax2.plot(timeVals,KE_total, label = "Kinetic Energy")
 ax2.plot(timeVals,PE_total, label = "Potential Energy")
 ax2.plot(timeVals, E_Total, label = "Total Energy")
-ax2.set_title("Energy of the System")
-ax2.set_xlabel("Time (6 hours)")
-ax2.set_ylabel("Energy (J)")
-
+ax2.set_title("Energy of the System",fontsize = 18)
+ax2.set_xlabel("Time (6 hours)", fontsize = 14)
+ax2.set_ylabel("Energy (J)", fontsize = 14)
+fig2.savefig("Energy Plot")
 
 #create the plot ojbect
-fig3, ax3 = plt.subplots()
-JScat = ax3.scatter([],[], c = "orange", label = "Jupiter") # creating the plot which we will populate with values
-CScat = ax3.scatter([],[], c = "darkgreen", label = "Ceres")
-SScat = ax3.scatter([],[], c = "blue", label = "Saturn")
+# fig3, ax3 = plt.subplots()
+# JScat = ax3.scatter([],[], c = "orange", label = "Jupiter") # creating the plot which we will populate with values
+# CScat = ax3.scatter([],[], c = "darkgreen", label = "Ceres")
+# SScat = ax3.scatter([],[], c = "blue", label = "Saturn")
 
-ax3.set_xlim([-2e12,2e12])
-ax3.set_ylim([-2e12,2e12])
-ax3.scatter(0,0, c = 'black', label = "Sun")
-ax3.set_title("Planetary Orbits of Ceres, Jupiter, and Saturn")
-ax3.set_xlabel("X position (m)")
-ax3.set_ylabel("Y position (m)")
-ax3.legend()
+# ax3.set_xlim([-2e12,2e12])
+# ax3.set_ylim([-2e12,2e12])
+# ax3.scatter(0,0, c = 'black', label = "Sun")
+# ax3.set_title("Planetary Orbits of Ceres, Jupiter, and Saturn")
+# ax3.set_xlabel("X position (m)")
+# ax3.set_ylabel("Y position (m)")
+# ax3.legend()
 
-def init():
-     JScat.set_offsets(np.empty((0,2)))
-     SScat.set_offsets(np.empty((0,2)))
-     CScat.set_offsets(np.empty((0,2)))
+# def init():
+#      JScat.set_offsets(np.empty((0,2)))
+#      SScat.set_offsets(np.empty((0,2)))
+#      CScat.set_offsets(np.empty((0,2)))
 
-     return(JScat, SScat, CScat)
+#      return(JScat, SScat, CScat)
 
-def update(frame):
+# def update(frame):
      
-     JScat.set_offsets([[JxVals[frame], JyVals[frame]]])
-     SScat.set_offsets([[SxVals[frame], SyVals[frame]]])
-     CScat.set_offsets([[CxVals[frame], CyVals[frame]]])
-     return (JScat,SScat,CScat)
+#      JScat.set_offsets([[JxVals[frame], JyVals[frame]]])
+#      SScat.set_offsets([[SxVals[frame], SyVals[frame]]])
+#      CScat.set_offsets([[CxVals[frame], CyVals[frame]]])
+#      return (JScat,SScat,CScat)
 
 
-ani = animation.FuncAnimation(
-    fig=fig3, 
-    func=update,
-    frames=range(0,len(timeVals),20),
-    init_func = init,
-    interval = 1,
-    blit= True)
+# ani = animation.FuncAnimation(
+#     fig=fig3, 
+#     func=update,
+#     frames=range(0,len(timeVals),40),
+#     init_func = init,
+#     interval = 1,
+#     blit= True)
+
+# ani.save("planet_orbits.gif", fps = 60)
 plt.show()

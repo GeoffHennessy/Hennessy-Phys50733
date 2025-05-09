@@ -50,7 +50,7 @@ b1 = Body([-0.9892620043,0],[0,1.9169244185])
 b2 = Body([2.2096177241,0],[0,0.1910268738])
 b3 = Body([-1.2203557197,0],[0,-2.1079512924])
 
-dt = 0.0001
+dt = 0.001
 Final_T = 34
 timeVals = np.arange(0,Final_T,dt)
 
@@ -108,37 +108,37 @@ ax.set_ylabel("Y Position")
 plt.axis('equal')
 plt.show()
 
-# fig2, ax2 = plt.subplots()
-# b1Scat = ax2.scatter([],[])
-# b2Scat = ax2.scatter([],[])
-# b3Scat = ax2.scatter([],[])
-# ax2.set_xlim(-5, 5)
-# ax2.set_ylim(-5, 5)
-# ax2.set_title("Three Body Orbits")
-# ax2.set_xlabel("X Position")
-# ax2.set_ylabel("Y Position")
+fig2, ax2 = plt.subplots()
+b1Scat = ax2.scatter([],[])
+b2Scat = ax2.scatter([],[])
+b3Scat = ax2.scatter([],[])
+ax2.set_xlim(-5, 5)
+ax2.set_ylim(-5, 5)
+ax2.set_title("Three Body Orbits")
+ax2.set_xlabel("X Position")
+ax2.set_ylabel("Y Position")
 
-# def init():
-#      b1Scat.set_offsets(np.empty((0,2)))
-#      b2Scat.set_offsets(np.empty((0,2)))
-#      b3Scat.set_offsets(np.empty((0,2)))
+def init():
+     b1Scat.set_offsets(np.empty((0,2)))
+     b2Scat.set_offsets(np.empty((0,2)))
+     b3Scat.set_offsets(np.empty((0,2)))
 
-#      return(b1Scat,b2Scat, b3Scat)
+     return(b1Scat,b2Scat, b3Scat)
 
-# def update(frame):
+def update(frame):
      
-#      b1Scat.set_offsets([[b1xVals[frame], b1yVals[frame]]])
-#      b2Scat.set_offsets([[b2xVals[frame], b2yVals[frame]]])
-#      b3Scat.set_offsets([[b3xVals[frame], b3yVals[frame]]])
-#      return (b1Scat,b2Scat,b3Scat)
+     b1Scat.set_offsets([[b1xVals[frame], b1yVals[frame]]])
+     b2Scat.set_offsets([[b2xVals[frame], b2yVals[frame]]])
+     b3Scat.set_offsets([[b3xVals[frame], b3yVals[frame]]])
+     return (b1Scat,b2Scat,b3Scat)
 
-# ani = animation.FuncAnimation(
-#     fig=fig2, 
-#     func=update,
-#     frames=range(0,len(timeVals),500),
-#     init_func = init,
-#     interval = 10,
-#     blit= True)
+ani = animation.FuncAnimation(
+    fig=fig2, 
+    func=update,
+    frames=range(0,len(timeVals),50),
+    init_func = init,
+    interval = 10,
+    blit= True)
 
-# ani.save("3_Body_ani.gif", fps = 60)
+ani.save("3_Body_ani.gif", fps = 60)
 plt.show()
